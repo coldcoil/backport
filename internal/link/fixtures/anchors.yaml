@@ -1,0 +1,19 @@
+---
+x-via: &default_via
+  url: https://a.example.com/
+  authentication:
+    client_certificate:
+      path: /etc/identity.pem
+
+x-target: &target
+  network: tcp
+  addr: localhost:22
+  labels:
+    service: ssh
+  via:
+  - *default_via
+  - <<: *default_via
+    url: https://b.example.com
+
+targets:
+- *target
